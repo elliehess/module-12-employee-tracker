@@ -119,6 +119,7 @@ viewEmployees = () => {
                 console.log(err)
             } else {
                 console.table(results)
+                init();
             };
         }
     );
@@ -150,6 +151,7 @@ const addRole = function () {
                     console.log(err)
                 } else {
                     console.log('A new role was added!')
+                    viewRoles();
                 };
             }
         );
@@ -187,6 +189,7 @@ const addEmployee = function () {
                     console.log(err)
                 } else {
                     console.log('A new employee was added!')
+                    viewEmployees();
                 };
             }
         );
@@ -209,6 +212,7 @@ const addDepartment = function () {
                     console.log(err)
                 } else {
                     console.log('A new department was added!')
+                    viewDepartments();
                 };
             }
         );
@@ -236,6 +240,7 @@ const updateRole = function () {
                     console.log(err)
                 } else {
                     console.log('The employees role was updated!')
+                    viewRoles();
                 };
             }
         );
