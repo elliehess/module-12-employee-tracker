@@ -87,7 +87,7 @@ viewRoles = () => {
         `SELECT 
         role.title AS 'Role', 
         role.id AS 'Role ID',
-        department.id AS 'Department ID', 
+        department.name AS 'Department', 
         role.salary AS 'Salary' 
         FROM role LEFT JOIN department ON role.department_id = department.id`, (err, results) => {
             if(err) {
@@ -107,8 +107,8 @@ viewEmployees = () => {
         employee.id AS 'Employee ID',
         employee.first_name AS 'First Name',
         employee.last_name AS 'Last Name',
-        role.title AS 'Role',
-        role.department_id AS 'Department',
+        role.title AS 'Title',
+        department.name AS 'Department',
         role.salary AS 'Salary',
         CONCAT(manager.first_name, ' ', manager.last_name) AS 'Manager'
         FROM employee LEFT JOIN role ON employee.role_id = role.id 
@@ -163,13 +163,13 @@ const addRole = function () {
         },
         {
             type: 'input',
-            name: 'department',
+            name: 'departmentid',
             message: 'What is the department ID of the role?',
         },
     ])
     .then((answers) => {
-        const values = [`${answers.role}, ${answers.salary}, ${answers.department}`];
-        db.query('INSERT INTO role (title, salary, department_id) VALUES (?,?,?)', values, (err, results, fields) => {
+        const values = [answers.role, answers.salary, answers.departmentid];
+        db.query(`INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`, values, (err, results, fields) => {
                 if(err) {
                     console.log(err)
                 } else {
@@ -206,8 +206,8 @@ const addEmployee = function () {
         },
     ])
     .then((answers) => {
-        const values = [`${answers.firstName}, ${answers.lastName}, ${answers.role}, ${answers.manager}`];
-        db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)', values, (err, results, fields) => {
+        const values = [answers.firstName, answers.lastName, answers.role, answers.manager];
+        db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`, values, (err, results, fields) => {
                 if(err) {
                     console.log(err)
                 } else {
@@ -232,11 +232,11 @@ const updateRole = function () {
         {
             type: 'input',
             name: 'newRole',
-            message: 'What is the number of the employees new role?',
+            message: 'What is the ID number of the employees new role?',
         },
     ])
     .then((answers) => {
-        const values = [`${answers.employeeID}, ${answers.newRole}`];
+        const values = [answers.employeeID, answers.newRole];
         db.query('UPDATE employee SET role_id = ? WHERE id = ?', values, (err, results, fields) => {
                 if(err) {
                     console.log(err)
