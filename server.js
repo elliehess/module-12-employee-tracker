@@ -125,6 +125,29 @@ viewEmployees = () => {
     );
 };
 
+  //function to add a Department
+  const addDepartment = function () {
+    inquirer.prompt ([
+        {
+            type: 'input',
+            name: 'department',
+            message: 'What is the name of the department?',
+        },
+    ])
+    .then((answers) => {
+        const values = [`${answers.department}`];
+        db.query('INSERT INTO department (name) VALUES (?)', values, (err, results, fields) => {
+                if(err) {
+                    console.log(err)
+                } else {
+                    console.log('A new department was added!')
+                    viewDepartments();
+                };
+            }
+        );
+    });
+  };
+
 //function to add a Role
 const addRole = function () {
     inquirer.prompt ([
@@ -146,7 +169,7 @@ const addRole = function () {
     ])
     .then((answers) => {
         const values = [`${answers.role}, ${answers.salary}, ${answers.department}`];
-        db.query('INSERT INTO role (title, salary, department_ID) VALUES (?,?,?)', values, (err, results, fields) => {
+        db.query('INSERT INTO role (title, salary, department_id) VALUES (?,?,?)', values, (err, results, fields) => {
                 if(err) {
                     console.log(err)
                 } else {
@@ -196,28 +219,7 @@ const addEmployee = function () {
     });
   };
 
-  //function to add a Department
-const addDepartment = function () {
-    inquirer.prompt ([
-        {
-            type: 'input',
-            name: 'department',
-            message: 'What is the name of the department?',
-        },
-    ])
-    .then((answers) => {
-        const values = [`${answers.department}`];
-        db.query('INSERT INTO department (name) VALUES (?)', values, (err, results, fields) => {
-                if(err) {
-                    console.log(err)
-                } else {
-                    console.log('A new department was added!')
-                    viewDepartments();
-                };
-            }
-        );
-    });
-  };
+
 
   //function to update an employee's role
 const updateRole = function () {
