@@ -17,7 +17,8 @@ This is an employee tracker application so that you are able to view and manage 
 ## Visuals
 
 
-[Click here for Walkthrough Video](https://ancient-tor-12985.herokuapp.com/)
+[Click here for Walkthrough Video](https://user-images.githubusercontent.com/118075347/222014372-94060e8a-50ca-4904-af50-27a12bc9a043.mp4)
+
 
 ## Installation
 
